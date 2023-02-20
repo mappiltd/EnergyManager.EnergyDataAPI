@@ -1,55 +1,77 @@
-﻿using EnergyManager.EnergyDataAPI.DTOs.Read.DeviceInformation;
+﻿using AutoMapper;
+using EnergyManager.EnergyDataAPI.Data;
+using EnergyManager.EnergyDataAPI.DTOs.Read.DeviceInformation;
+using EnergyManager.EnergyDataAPI.Models;
+using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EnergyManager.EnergyDataAPI.Controllers
 {
-    [Route("api/MeterInformation")]
+    [Route("api/DeviceInformation")]
     [ApiController]
     public class DeviceInformationController : ControllerBase
     {
-        [HttpGet("id", Name = "GetDeviceData")]
-        public ActionResult<DeviceInformationReadDto> GetDeviceData(Guid deviceId)
+        private readonly IDeviceInformationRepo _deviceInformationRepo;
+        private readonly IMapper _mapper;
+
+        public DeviceInformationController(IDeviceInformationRepo deviceInformationRepo, IMapper mapper)
         {
-            return Ok();
+            _deviceInformationRepo = deviceInformationRepo;
+            _mapper = mapper;
         }
 
-        [HttpGet("id", Name = "GetDeviceName")]
+
+        /// <summary>
+        /// Gets the complete row for a given device.
+        /// </summary>
+        /// <param name="deviceId">Guid</param>
+        /// <returns>DeviceInformationReadDto</returns>
+        [HttpGet, Route("GetDeviceData")]
+        public async Task<ActionResult<DeviceInformationReadDto>> GetDeviceData(Guid deviceId)
+        {
+            DeviceInformationModel result = await _deviceInformationRepo.GetDeviceByIdAsync(deviceId);
+
+            return Ok(result);
+        }
+
+        [HttpGet, Route("GetDeviceName")]
         public ActionResult<string> GetDeviceName(Guid deviceId)
         {
             return Ok();
         }
 
-        [HttpGet("id", Name = "GetDeviceLocation")]
+        [HttpGet, Route("GetDeviceLocation")]
         public ActionResult<string> GetDeviceLocation(Guid deviceId)
         {
             return Ok();
         }
 
-        [HttpGet("id", Name = "GetDeviceType")]
+        [HttpGet, Route("GetDeviceType")]
         public ActionResult<string> GetDeviceType(Guid deviceId)
         {
             return Ok();
         }
 
-        [HttpGet("id", Name = "GetAllDevices")]
+        [HttpGet, Route("GetAllDevices")]
         public ActionResult<IEnumerable<DeviceInformationReadDto>> GetAllDevices(Guid customerId)
         {
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost, Route("CreateDevice")]
         public ActionResult<IEnumerable<DeviceInformationReadDto>> CreateDevice(Guid customerId)
         {
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost, Route("DeleteDevice")]
         public ActionResult<IEnumerable<DeviceInformationReadDto>> DeleteDevice(Guid deviceId)
         {
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost, Route("DisableDevice")]
         public ActionResult<IEnumerable<DeviceInformationReadDto>> DisableDevice(Guid deviceId)
         {
             return Ok();

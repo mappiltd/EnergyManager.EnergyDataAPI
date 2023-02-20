@@ -1,12 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EnergyManager.EnergyDataAPI.Controllers
-{
+{     
+    /// <summary>
+    /// DDDDDDDDDDDDDDDDDDDDD
+    /// </summary>
+    [Route("api/EnergyData")]
+    [ApiController]
     public class EnergyDataController : Controller
     {
-        public IActionResult Index()
+        private readonly IEnergyDataRepo _energyDataRepo;
+        private readonly IMapper _mapper;
+
+        public EnergyDataController(IEnergyDataRepo energyDataRepo, IMapper mapper)
         {
-            return View();
+            _energyDataRepo = energyDataRepo;
+            _mapper = mapper;
+        }
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return Ok();
         }
     }
 }

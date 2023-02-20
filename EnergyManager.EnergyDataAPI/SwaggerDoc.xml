@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EnergyManager.EnergyDataAPI</name>
+    </assembly>
+    <members>
+        <member name="M:EnergyManager.EnergyDataAPI.Controllers.DeviceInformationController.GetDeviceData(System.Guid)">
+            <summary>
+            Gets the complete row for a given device.
+            </summary>
+            <param name="deviceId">Guid</param>
+            <returns>DeviceInformationReadDto</returns>
+        </member>
+        <member name="T:EnergyManager.EnergyDataAPI.Controllers.EnergyDataController">
+            <summary>
+            DDDDDDDDDDDDDDDDDDDDD
+            </summary>
+        </member>
+        <member name="T:EnergyManager.EnergyDataAPI.Serialisers.JsonSerialiser`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:EnergyManager.EnergyDataAPI.Serialisers.JsonSerialiser`1.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="F:EnergyManager.EnergyDataAPI.Serialisers.JsonSerialiser`1._options">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:EnergyManager.EnergyDataAPI.Serialisers.JsonSerialiser`1.DeserializeJsonData(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="jsonString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EnergyManager.EnergyDataAPI.Serialisers.JsonSerialiser`1.SerializeSettings(`0)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

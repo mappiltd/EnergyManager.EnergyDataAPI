@@ -10,6 +10,9 @@ namespace EnergyManager.EnergyDataAPI.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid EnergyDataId { get; set; }
 
+        [Required] 
+        public Guid DeviceDataId { get;set; }
+
         [Required]
         public DateTime ReadingDate { get; set; }
 

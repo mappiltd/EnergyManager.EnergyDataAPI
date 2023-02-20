@@ -6,7 +6,6 @@ namespace EnergyManager.EnergyDataAPI.MapperProfiles
     {
         public DeviceInformationMappingProfile()
         {
-
         }
     }
 }

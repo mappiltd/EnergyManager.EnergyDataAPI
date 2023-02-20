@@ -1,4 +1,5 @@
 ﻿using EnergyManager.EnergyDataAPI.Data;
+using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using EnergyManager.EnergyDataAPI.Repositories.Repos;
 using Microsoft.EntityFrameworkCore;
 
