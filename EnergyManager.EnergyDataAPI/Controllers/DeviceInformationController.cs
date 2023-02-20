@@ -1,14 +1,14 @@
-﻿using EnergyManager.EnergyDataAPI.DTOs;
+﻿using EnergyManager.EnergyDataAPI.DTOs.Read.DeviceInformation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnergyManager.EnergyDataAPI.Controllers
 {
     [Route("api/MeterInformation")]
     [ApiController]
-    public class MeterInformationController : ControllerBase
+    public class DeviceInformationController : ControllerBase
     {
         [HttpGet("id", Name = "GetDeviceData")]
-        public ActionResult<DeviceDataReadDto> GetDeviceData(Guid deviceId)
+        public ActionResult<DeviceInformationReadDto> GetDeviceData(Guid deviceId)
         {
             return Ok();
         }
@@ -32,25 +32,25 @@ namespace EnergyManager.EnergyDataAPI.Controllers
         }
 
         [HttpGet("id", Name = "GetAllDevices")]
-        public ActionResult<IEnumerable<DeviceDataReadDto>> GetAllDevices(Guid customerId)
+        public ActionResult<IEnumerable<DeviceInformationReadDto>> GetAllDevices(Guid customerId)
         {
             return Ok();
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<DeviceDataReadDto>> CreateDevice(Guid customerId)
+        public ActionResult<IEnumerable<DeviceInformationReadDto>> CreateDevice(Guid customerId)
         {
             return Ok();
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<DeviceDataReadDto>> DeleteDevice(Guid deviceId)
+        public ActionResult<IEnumerable<DeviceInformationReadDto>> DeleteDevice(Guid deviceId)
         {
             return Ok();
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<DeviceDataReadDto>> DisableDevice(Guid deviceId)
+        public ActionResult<IEnumerable<DeviceInformationReadDto>> DisableDevice(Guid deviceId)
         {
             return Ok();
         }

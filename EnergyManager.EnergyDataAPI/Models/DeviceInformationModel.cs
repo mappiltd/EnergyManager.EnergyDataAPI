@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EnergyManager.EnergyDataAPI.Models
 {
     [Table("DeviceData")]
-    public class DeviceDataModel
+    public class DeviceInformationModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -9,7 +9,8 @@ namespace EnergyManager.EnergyDataAPI.Data
         {
         }
 
-        public DbSet<DeviceDataModel> DeviceData { get; set; }
+        public DbSet<DeviceInformationModel> DeviceData { get; set; }
         public DbSet<EnergyDataModel> EnergyData { get; set; }
+        public DbSet<TagDataModel> TagData { get; set; }
     }
 }
