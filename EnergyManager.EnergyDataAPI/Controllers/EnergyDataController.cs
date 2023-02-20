@@ -3,10 +3,7 @@ using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnergyManager.EnergyDataAPI.Controllers
-{     
-    /// <summary>
-    /// DDDDDDDDDDDDDDDDDDDDD
-    /// </summary>
+{  
     [Route("api/EnergyData")]
     [ApiController]
     public class EnergyDataController : Controller
