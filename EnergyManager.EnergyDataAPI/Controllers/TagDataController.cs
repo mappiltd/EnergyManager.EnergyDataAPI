@@ -3,15 +3,15 @@ using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnergyManager.EnergyDataAPI.Controllers
-{  
-    [Route("api/EnergyData")]
+{
+    [Route("api/TagData")]
     [ApiController]
-    public class EnergyDataController : Controller
+    public class TagDataController : Controller
     {
         private readonly IEnergyDataRepo _energyDataRepo;
         private readonly IMapper _mapper;
 
-        public EnergyDataController(IEnergyDataRepo energyDataRepo, IMapper mapper)
+        public TagDataController(IEnergyDataRepo energyDataRepo, IMapper mapper)
         {
             _energyDataRepo = energyDataRepo;
             _mapper = mapper;

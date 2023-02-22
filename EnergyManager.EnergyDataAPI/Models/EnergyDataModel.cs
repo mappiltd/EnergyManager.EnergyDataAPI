@@ -3,16 +3,34 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EnergyManager.EnergyDataAPI.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Table("EnergyData")]
     public class EnergyDataModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid EnergyDataId { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Required] 
+        public Guid DeviceDataId { get;set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public DateTime ReadingDate { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public TimeSpan ReadingTime 
         {
@@ -20,6 +38,9 @@ namespace EnergyManager.EnergyDataAPI.Models
             set { }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Required]
         public double ReadingValue { get; set; }
     }
