@@ -28,7 +28,7 @@ namespace EnergyManager.EnergyDataAPI.Controllers
         /// <param name="deviceId">Guid</param>
         /// <returns>DeviceInformationReadDto</returns>
         [HttpGet, Route("GetDeviceData")]
-        public async Task<ActionResult<DeviceInformationReadDto>> GetDeviceData(Guid deviceId)
+        public async Task<ActionResult<DeviceDataEnabledReadDto>> GetDeviceData(Guid deviceId)
         {
             DeviceInformationModel result = await _deviceInformationRepo.GetDeviceByIdAsync(deviceId);
 
@@ -54,25 +54,25 @@ namespace EnergyManager.EnergyDataAPI.Controllers
         }
 
         [HttpGet, Route("GetAllDevices")]
-        public ActionResult<IEnumerable<DeviceInformationReadDto>> GetAllDevices(Guid customerId)
+        public ActionResult<IEnumerable<DeviceDataEnabledReadDto>> GetAllDevices(Guid customerId)
         {
             return Ok();
         }
 
         [HttpPost, Route("CreateDevice")]
-        public ActionResult<IEnumerable<DeviceInformationReadDto>> CreateDevice(Guid customerId)
+        public ActionResult<IEnumerable<DeviceDataEnabledReadDto>> CreateDevice(Guid customerId)
         {
             return Ok();
         }
 
         [HttpPost, Route("DeleteDevice")]
-        public ActionResult<IEnumerable<DeviceInformationReadDto>> DeleteDevice(Guid deviceId)
+        public ActionResult<IEnumerable<DeviceDataEnabledReadDto>> DeleteDevice(Guid deviceId)
         {
             return Ok();
         }
 
         [HttpPost, Route("DisableDevice")]
-        public ActionResult<IEnumerable<DeviceInformationReadDto>> DisableDevice(Guid deviceId)
+        public ActionResult<IEnumerable<DeviceDataEnabledReadDto>> DisableDevice(Guid deviceId)
         {
             return Ok();
         }

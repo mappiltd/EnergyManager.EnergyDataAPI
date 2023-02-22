@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-EnergyManager.EnergyDataAPI-735fd796-045d-4268-933b-f3f35c39b709</UserSecretsId>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <DocumentationFile>SwaggerDoc.xml</DocumentationFile>
   </PropertyGroup>
 

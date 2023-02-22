@@ -24,8 +24,8 @@ builder.Services.AddSwaggerGen(c =>
     c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
     c.IgnoreObsoleteActions();
     c.IgnoreObsoleteProperties();
-    var xmlFilename = "SwaggerDoc.xml";
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));   
+    //var xmlFilename = "SwaggerDoc.xml";
+    //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));   
 });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

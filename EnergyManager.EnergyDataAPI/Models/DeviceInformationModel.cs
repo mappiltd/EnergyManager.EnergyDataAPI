@@ -14,7 +14,10 @@ namespace EnergyManager.EnergyDataAPI.Models
         public string? DeviceName { get; set; }
 
         [Required]
-        public Guid? UnitsOfMeasurementId { get; set; }
+        public string? DeviceDescription { get; set; }
+
+        [Required]
+        public UnitsOfMeasurementModel? UnitsOfMeasurement { get; set; }
 
         [Required]
         public Guid CustomerId { get; set; }
@@ -25,6 +28,10 @@ namespace EnergyManager.EnergyDataAPI.Models
         [Required]
         public Guid BuildingId { get; set; }
 
-        public bool DeviceEnabled { get; set; } 
+        [Required]
+        public bool DeviceEnabled { get; set; }
+
+        [Required]
+        public DateTime DeviceDateCreated { get; set; }
     }
 }
