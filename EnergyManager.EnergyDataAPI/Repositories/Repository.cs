@@ -37,7 +37,7 @@ namespace EnergyManager.EnergyDataAPI.Repositories
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             using var context = _applicationContext.CreateDbContext();
-            List<TEntity> items = await context.Set<TEntity>().Where(predicate).ToListAsync();
+            List<TEntity> items = await context.Set<TEntity>().AsNoTracking().Where(predicate).ToListAsync();
 
             return items;
         }
@@ -51,7 +51,7 @@ namespace EnergyManager.EnergyDataAPI.Repositories
         public async Task<ICollection<TEntity>> GetAllAsync()
         {
             using ApplicationDbContext context = _applicationContext.CreateDbContext();
-            return await context.Set<TEntity>().ToListAsync();
+            return await context.Set<TEntity>().AsNoTracking().ToListAsync();
         }      
 
         public void Remove(TEntity entity)

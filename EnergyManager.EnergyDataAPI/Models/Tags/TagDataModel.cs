@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EnergyManager.EnergyDataAPI.Models
+namespace EnergyManager.EnergyDataAPI.Models.Tags
 {
     /// <summary>
     /// 
@@ -27,12 +27,12 @@ namespace EnergyManager.EnergyDataAPI.Models
         /// </summary>
         [Required]
         public string? TagDataDescription { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
         public string? TagDataTextColor { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>

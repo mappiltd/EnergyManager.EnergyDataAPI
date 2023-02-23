@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace EnergyManager.EnergyDataAPI.Models
+namespace EnergyManager.EnergyDataAPI.Models.DeviceData
 {
     /// <summary>
     /// 
@@ -19,8 +19,8 @@ namespace EnergyManager.EnergyDataAPI.Models
         /// <summary>
         /// 
         /// </summary>
-        [Required] 
-        public Guid DeviceDataId { get;set; }
+        [Required]
+        public Guid DeviceDataId { get; set; }
 
         /// <summary>
         /// 
@@ -32,7 +32,7 @@ namespace EnergyManager.EnergyDataAPI.Models
         /// 
         /// </summary>
         [Required]
-        public TimeSpan ReadingTime 
+        public TimeSpan ReadingTime
         {
             get { return ReadingDate.TimeOfDay; }
             set { }

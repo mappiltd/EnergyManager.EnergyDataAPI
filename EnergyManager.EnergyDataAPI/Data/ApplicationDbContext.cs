@@ -1,4 +1,6 @@
-﻿using EnergyManager.EnergyDataAPI.Models;
+﻿using EnergyManager.EnergyDataAPI.Models.DeviceData;
+using EnergyManager.EnergyDataAPI.Models.Devices;
+using EnergyManager.EnergyDataAPI.Models.Tags;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnergyManager.EnergyDataAPI.Data

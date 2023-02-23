@@ -1,7 +1,8 @@
 ﻿namespace EnergyManager.EnergyDataAPI.DTOs.Read.DeviceInformation
 {
-    public class DeviceInformationReadDto
-    {  
+    public class DeviceInformationUpdateRequest
+    {
+        public Guid DeviceDataId { get; set; }
         public string? DeviceName { get; set; }
         public string? DeviceDescription { get; set; }
         public Guid? UnitsOfMeasurementId { get; set; }

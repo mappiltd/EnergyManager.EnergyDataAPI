@@ -1,6 +1,6 @@
 ﻿namespace EnergyManager.EnergyDataAPI.DTOs.Read.TagData
 {
-    public class TagDataReadDto
+    public class TagDataRequest
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace EnergyManager.EnergyDataAPI.DTOs.Write.EnergyData
 {
-    public class EnergyDataWriteDto
+    public class EnergyDataResponse
     {
     }
 }

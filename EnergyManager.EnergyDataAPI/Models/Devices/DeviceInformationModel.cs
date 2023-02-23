@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EnergyManager.EnergyDataAPI.Models
+namespace EnergyManager.EnergyDataAPI.Models.Devices
 {
     [Table("DeviceData")]
     public class DeviceInformationModel
@@ -14,10 +14,7 @@ namespace EnergyManager.EnergyDataAPI.Models
         public string? DeviceName { get; set; }
 
         [Required]
-        public string? DeviceDescription { get; set; }
-
-        [Required]
-        public UnitsOfMeasurementModel? UnitsOfMeasurement { get; set; }
+        public string? DeviceDescription { get; set; }       
 
         [Required]
         public Guid CustomerId { get; set; }
@@ -33,5 +30,8 @@ namespace EnergyManager.EnergyDataAPI.Models
 
         [Required]
         public DateTime DeviceDateCreated { get; set; }
+
+        [Required]
+        public UnitsOfMeasurementModel? UnitsOfMeasurement { get; set; }
     }
 }

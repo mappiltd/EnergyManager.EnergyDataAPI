@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EnergyManager.EnergyDataAPI.Models
+namespace EnergyManager.EnergyDataAPI.Models.Devices
 {
     [Table("UnitsOfMeasurement")]
     public class UnitsOfMeasurementModel
@@ -14,6 +14,6 @@ namespace EnergyManager.EnergyDataAPI.Models
 
         public string? Name { get; set; }
 
-        public string? Description { get; set; }        
+        public string? Description { get; set; }
     }
 }
