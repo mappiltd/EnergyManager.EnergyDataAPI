@@ -1,5 +1,4 @@
 ﻿using EnergyManager.EnergyDataAPI.Data;
-using EnergyManager.EnergyDataAPI.DTOs.Write.DeviceInformation;
 using EnergyManager.EnergyDataAPI.Models.Devices;
 using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

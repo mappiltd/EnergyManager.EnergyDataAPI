@@ -1,4 +1,4 @@
-﻿namespace EnergyManager.EnergyDataAPI.DTOs.Read.UnitsOfMeasurement
+﻿namespace EnergyManager.EnergyDataAPI.DTOs.Requests.UnitsOfMeasurement
 {
     public class UnitsOfMeasurementRequest
     {

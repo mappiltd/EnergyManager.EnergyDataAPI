@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EnergyManager.EnergyDataAPI.DTOs.Read.DeviceInformation;
-using EnergyManager.EnergyDataAPI.DTOs.Write.DeviceInformation;
+using EnergyManager.EnergyDataAPI.DTOs.Requests.DeviceInformation;
+using EnergyManager.EnergyDataAPI.DTOs.Responses.DeviceInformation;
 using EnergyManager.EnergyDataAPI.Models.Devices;
 
 namespace EnergyManager.EnergyDataAPI.MapperProfiles

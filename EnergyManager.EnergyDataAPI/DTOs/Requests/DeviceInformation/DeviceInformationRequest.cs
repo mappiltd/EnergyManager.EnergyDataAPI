@@ -1,8 +1,6 @@
-﻿using EnergyManager.EnergyDataAPI.DTOs.Read.UnitsOfMeasurement;
-using EnergyManager.EnergyDataAPI.DTOs.Write.UnitsOfMeasurement;
-using EnergyManager.EnergyDataAPI.Models.Devices;
+﻿using EnergyManager.EnergyDataAPI.DTOs.Requests.UnitsOfMeasurement;
 
-namespace EnergyManager.EnergyDataAPI.DTOs.Read.DeviceInformation
+namespace EnergyManager.EnergyDataAPI.DTOs.Requests.DeviceInformation
 {
     public class DeviceInformationRequest
     {

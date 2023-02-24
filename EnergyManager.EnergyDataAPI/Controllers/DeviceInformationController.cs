@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using EnergyManager.EnergyDataAPI.DTOs.Read.DeviceInformation;
-using EnergyManager.EnergyDataAPI.DTOs.Write.DeviceInformation;
+using EnergyManager.EnergyDataAPI.DTOs.Requests.DeviceInformation;
+using EnergyManager.EnergyDataAPI.DTOs.Responses.DeviceInformation;
 using EnergyManager.EnergyDataAPI.Models.Devices;
 using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using EnergyManager.EnergyDataAPI.UnitsOfWork;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Graph;
 
 namespace EnergyManager.EnergyDataAPI.Controllers
 {
@@ -15,13 +15,18 @@ namespace EnergyManager.EnergyDataAPI.Controllers
     {
         private readonly IDeviceInformationRepo _deviceInformationRepo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IValidator<DeviceInformationRequest> _deviceInformationValidator;
         private readonly IMapper _mapper;         
 
-        public DeviceInformationController(IDeviceInformationRepo deviceInformationRepo, IMapper mapper, IUnitOfWork unitOfWork)
+        public DeviceInformationController(IDeviceInformationRepo deviceInformationRepo, 
+            IMapper mapper, 
+            IUnitOfWork unitOfWork,
+            IValidator<DeviceInformationRequest> deviceInformationValidator)
         {
             _deviceInformationRepo = deviceInformationRepo;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _deviceInformationValidator = deviceInformationValidator;
         }
 
         private async Task<DeviceInformationResponse> GetDevice(Guid deviceId)
@@ -32,18 +37,26 @@ namespace EnergyManager.EnergyDataAPI.Controllers
             return mappedDevice;
         }
 
-        private async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevices(IEnumerable<Guid> deviceIds)
+        private async Task<IEnumerable<DeviceInformationResponse>> GetDevices(IEnumerable<Guid> deviceIds)
         {
             IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesAsync(deviceIds);
             IEnumerable<DeviceInformationResponse> mappedDevices = _mapper.Map<IEnumerable<DeviceInformationResponse>>(devices);
 
-            return Ok(mappedDevices);
+            return mappedDevices;
         }
 
         [HttpGet, Route("GetDeviceName")]
         public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesList(IEnumerable<Guid> deviceIds)
         {
-            var devices = await GetDevices(deviceIds);
+            IEnumerable<DeviceInformationResponse> devices = await GetDevices(deviceIds);
+
+            if(devices.Count() < 1) 
+            {
+                return NotFound("No devices were found with those Id's");
+            
+            }
+
+            
 
             return Ok(devices);
         }

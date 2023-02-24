@@ -1,6 +1,6 @@
-﻿namespace EnergyManager.EnergyDataAPI.DTOs.Read.DeviceInformation
+﻿namespace EnergyManager.EnergyDataAPI.DTOs.Responses.DeviceInformation
 {
-    public class DeviceInformationUpdateRequest
+    public class DeviceInformationUpdateResponse
     {
         public Guid DeviceDataId { get; set; }
         public string? DeviceName { get; set; }
