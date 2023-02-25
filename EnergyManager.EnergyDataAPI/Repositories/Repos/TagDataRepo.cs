@@ -1,5 +1,5 @@
 ﻿using EnergyManager.EnergyDataAPI.Data;
-using EnergyManager.EnergyDataAPI.Models;
+using EnergyManager.EnergyDataAPI.Models.Tags;
 using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

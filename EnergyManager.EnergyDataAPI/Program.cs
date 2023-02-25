@@ -1,6 +1,18 @@
 using EnergyManager.EnergyDataAPI.Data;
+using EnergyManager.EnergyDataAPI.DTOs.Requests.DeviceInformation;
+using EnergyManager.EnergyDataAPI.DTOs.Requests.EnergyData;
+using EnergyManager.EnergyDataAPI.DTOs.Requests.TagData;
+using EnergyManager.EnergyDataAPI.DTOs.Requests.UnitsOfMeasurement;
+using EnergyManager.EnergyDataAPI.DTOs.Responses.DeviceInformation;
+using EnergyManager.EnergyDataAPI.Models.Devices;
 using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using EnergyManager.EnergyDataAPI.Repositories.Repos;
+using EnergyManager.EnergyDataAPI.UnitsOfWork;
+using EnergyManager.EnergyDataAPI.Validators.DeviceInformation;
+using EnergyManager.EnergyDataAPI.Validators.EnergyData;
+using EnergyManager.EnergyDataAPI.Validators.TagData;
+using EnergyManager.EnergyDataAPI.Validators.UnitsOfMeasurement;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -9,7 +21,13 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+//Options
+
+//Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"))
         .EnableTokenAcquisitionToCallDownstreamApi()
@@ -28,16 +46,21 @@ builder.Services.AddSwaggerGen(c =>
     //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));   
 });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
 
+//Mapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+//Repos
 builder.Services.AddScoped<IDeviceInformationRepo, DeviceInformationRepo>();
 builder.Services.AddScoped<IEnergyDataRepo, EnergyDataRepo>();
 builder.Services.AddScoped<ITagDataRepo, TagDataRepo>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+//Validator Services
+builder.Services.AddScoped<IValidator<DeviceInformationRequest>, DeviceInformationRequestValidator>();
+builder.Services.AddScoped<IValidator<EnergyDataRequest>, EnergyDataRequestValidator>();
+builder.Services.AddScoped<IValidator<TagDataRequest>, TagDataRequestValidator>();
+builder.Services.AddScoped<IValidator<UnitsOfMeasurementRequest>, UnitsOfMeasurementRequestValidator>();
 
 var app = builder.Build();
 

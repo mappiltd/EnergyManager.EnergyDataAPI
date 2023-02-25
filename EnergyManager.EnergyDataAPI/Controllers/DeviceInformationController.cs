@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using EnergyManager.EnergyDataAPI.Data;
-using EnergyManager.EnergyDataAPI.DTOs.Read.DeviceInformation;
-using EnergyManager.EnergyDataAPI.Models;
+using EnergyManager.EnergyDataAPI.DTOs.Requests.DeviceInformation;
+using EnergyManager.EnergyDataAPI.DTOs.Responses.DeviceInformation;
+using EnergyManager.EnergyDataAPI.Models.Devices;
 using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
+using EnergyManager.EnergyDataAPI.UnitsOfWork;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EnergyManager.EnergyDataAPI.Controllers
 {
@@ -13,66 +14,139 @@ namespace EnergyManager.EnergyDataAPI.Controllers
     public class DeviceInformationController : ControllerBase
     {
         private readonly IDeviceInformationRepo _deviceInformationRepo;
-        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IValidator<DeviceInformationRequest> _deviceInformationValidator;
+        private readonly IMapper _mapper;         
 
-        public DeviceInformationController(IDeviceInformationRepo deviceInformationRepo, IMapper mapper)
+        public DeviceInformationController(IDeviceInformationRepo deviceInformationRepo, 
+            IMapper mapper, 
+            IUnitOfWork unitOfWork,
+            IValidator<DeviceInformationRequest> deviceInformationValidator)
         {
             _deviceInformationRepo = deviceInformationRepo;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _deviceInformationValidator = deviceInformationValidator;
         }
 
+        private async Task<DeviceInformationResponse> GetDevice(Guid deviceId)
+        {
+            DeviceInformationModel device = await _deviceInformationRepo.GetDeviceAsync(deviceId);
+            DeviceInformationResponse mappedDevice = _mapper.Map<DeviceInformationResponse>(device);
+
+            return mappedDevice;
+        }
 
         /// <summary>
-        /// Gets the complete row for a given device.
+        /// Get's all devices for a given customer.
         /// </summary>
-        /// <param name="deviceId">Guid</param>
-        /// <returns>DeviceInformationReadDto</returns>
-        [HttpGet, Route("GetDeviceData")]
-        public async Task<ActionResult<DeviceDataEnabledReadDto>> GetDeviceData(Guid deviceId)
-        {
-            DeviceInformationModel result = await _deviceInformationRepo.GetDeviceByIdAsync(deviceId);
+        /// <param name="customerId">int</param>
+        /// <returns>IEnumerable<DeviceInformationResponse>></returns>
+        [HttpGet, Route("GetDevices")]
+        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesList(Guid customerId)
+        {                  
 
-            return Ok(result);
+            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesListByCustomerIdAsync(customerId);           
+
+            if (devices.Count() < 1) 
+            {
+                return NotFound("No devices were found with those Id's");              
+            } 
+
+            return Ok(_mapper.Map<IEnumerable<DeviceInformationResponse>>(devices));
         }
 
-        [HttpGet, Route("GetDeviceName")]
-        public ActionResult<string> GetDeviceName(Guid deviceId)
+        [HttpGet, Route("GetDevicesByCustomerId")]
+        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesByCustomerId(Guid customerId)
         {
-            return Ok();
+            if(customerId == Guid.Empty)
+            {
+                return BadRequest("The id provided has no value.");
+            }
+
+            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesListByCustomerIdAsync(customerId);
+            if (devices.Count() < 1)
+            {
+                return NotFound("No devices were found for that customer.");
+            }
+
+            return Ok(_mapper.Map<DeviceInformationResponse>(devices));
+        }
+
+        [HttpGet, Route("GetDevicesByLocationId")]
+        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesByLocationId(Guid locationId)
+        {
+            if (locationId == Guid.Empty)
+            {
+                return BadRequest("The id provided has no value.");
+            }
+
+            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesListByLocationIdAsync(locationId);
+            
+            if (devices.Count() < 1)
+            {
+                return NotFound("No devices were found for that location.");
+            }
+            
+            return Ok(_mapper.Map<DeviceInformationResponse>(devices));
+        } 
+
+        [HttpGet, Route("GetDevicesByBuildingId")]
+        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesByBuildingId(Guid buildingId)
+        {
+            if (buildingId == Guid.Empty)
+            {
+                return BadRequest("The id provided has no value.");
+            }
+
+            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesListByCustomerIdAsync(buildingId);
+            if (devices.Count() < 1)
+            {
+                return NotFound("No devices were found for that building.");
+            }
+
+            return Ok(devices);
         }
 
         [HttpGet, Route("GetDeviceLocation")]
-        public ActionResult<string> GetDeviceLocation(Guid deviceId)
+        public async Task<ActionResult<Guid>> GetDeviceLocation(Guid deviceId)
         {
-            return Ok();
-        }
+            DeviceInformationResponse device = await GetDevice(deviceId);            
 
-        [HttpGet, Route("GetDeviceType")]
-        public ActionResult<string> GetDeviceType(Guid deviceId)
-        {
             return Ok();
-        }
-
-        [HttpGet, Route("GetAllDevices")]
-        public ActionResult<IEnumerable<DeviceDataEnabledReadDto>> GetAllDevices(Guid customerId)
-        {
-            return Ok();
-        }
+        } 
 
         [HttpPost, Route("CreateDevice")]
-        public ActionResult<IEnumerable<DeviceDataEnabledReadDto>> CreateDevice(Guid customerId)
+        public async Task<ActionResult<DeviceInformationResponse>> CreateDevice(DeviceInformationRequest device)
         {
-            return Ok();
+            DeviceInformationModel mappedDevice = _mapper.Map<DeviceInformationModel>(device);
+
+            int result = await _deviceInformationRepo.CreateDevice(mappedDevice);
+            await _unitOfWork.Complete();
+
+            if(result > 0)
+            {
+                DeviceInformationResponse response = _mapper.Map<DeviceInformationResponse>(mappedDevice);
+
+                return CreatedAtRoute(nameof(GetDevice), new { deviceId = response.DeviceDataId }, response);
+            }
+            else
+            {
+              return BadRequest("The device object could not be saved.");
+            }
         }
 
         [HttpPost, Route("DeleteDevice")]
-        public ActionResult<IEnumerable<DeviceDataEnabledReadDto>> DeleteDevice(Guid deviceId)
+        public ActionResult<IEnumerable<DeviceInformationResponse>> DeleteDevice(Guid deviceId)
         {
+
+
+
             return Ok();
         }
 
         [HttpPost, Route("DisableDevice")]
-        public ActionResult<IEnumerable<DeviceDataEnabledReadDto>> DisableDevice(Guid deviceId)
+        public ActionResult<IEnumerable<DeviceInformationResponse>> DisableDevice(Guid deviceId)
         {
             return Ok();
         }
