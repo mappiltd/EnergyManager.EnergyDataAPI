@@ -37,52 +37,76 @@ namespace EnergyManager.EnergyDataAPI.Controllers
             return mappedDevice;
         }
 
-        private async Task<IEnumerable<DeviceInformationResponse>> GetDevices(IEnumerable<Guid> deviceIds)
+        /// <summary>
+        /// Get's all devices for a given customer.
+        /// </summary>
+        /// <param name="customerId">int</param>
+        /// <returns>IEnumerable<DeviceInformationResponse>></returns>
+        [HttpGet, Route("GetDevices")]
+        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesList(Guid customerId)
         {
-            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesAsync(deviceIds);
-            IEnumerable<DeviceInformationResponse> mappedDevices = _mapper.Map<IEnumerable<DeviceInformationResponse>>(devices);
+          
 
-            return mappedDevices;
-        }
+            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesAsync(deviceIds);           
 
-        [HttpGet, Route("GetDeviceName")]
-        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesList(IEnumerable<Guid> deviceIds)
-        {
-            IEnumerable<DeviceInformationResponse> devices = await GetDevices(deviceIds);
-
-            if(devices.Count() < 1) 
+            if (devices.Count() < 1) 
             {
-                return NotFound("No devices were found with those Id's");
-            
-            }
+                return NotFound("No devices were found with those Id's");              
+            } 
 
-            
-
-            return Ok(devices);
+            return Ok(_mapper.Map<IEnumerable<DeviceInformationResponse>>(devices));
         }
 
         [HttpGet, Route("GetDevicesByCustomerId")]
         public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesByCustomerId(Guid customerId)
         {
-            // var devices = await GetDevices(deviceIds);
+            if(customerId == Guid.Empty)
+            {
+                return BadRequest("The id provided has no value.");
+            }
 
-            return Ok();
+            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesListByCustomerIdAsync(customerId);
+            if (devices.Count() < 1)
+            {
+                return NotFound("No devices were found for that customer.");
+            }
+
+            return Ok(_mapper.Map<DeviceInformationResponse>(devices));
         }
 
         [HttpGet, Route("GetDevicesByLocationId")]
-        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesByLocationId(IEnumerable<Guid> locationIds)
+        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesByLocationId(Guid locationId)
         {
-            // var devices = await GetDevices(deviceIds);
+            if (locationId == Guid.Empty)
+            {
+                return BadRequest("The id provided has no value.");
+            }
 
-            return Ok();
+            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesListByLocationIdAsync(locationId);
+            
+            if (devices.Count() < 1)
+            {
+                return NotFound("No devices were found for that location.");
+            }
+            
+            return Ok(_mapper.Map<DeviceInformationResponse>(devices));
         } 
 
         [HttpGet, Route("GetDevicesByBuildingId")]
-        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesByBuildingId(IEnumerable<Guid> buildingIds)
+        public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesByBuildingId(Guid buildingId)
         {
-           // var devices = await GetDevices(deviceIds);
+            if (buildingId == Guid.Empty)
+            {
+                return BadRequest("The id provided has no value.");
+            }
 
-            return Ok();
+            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesListByCustomerIdAsync(buildingId);
+            if (devices.Count() < 1)
+            {
+                return NotFound("No devices were found for that building.");
+            }
+
+            return Ok(devices);
         }
 
         [HttpGet, Route("GetDeviceLocation")]

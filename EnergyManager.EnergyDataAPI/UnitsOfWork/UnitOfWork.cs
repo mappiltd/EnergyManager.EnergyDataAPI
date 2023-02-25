@@ -16,13 +16,17 @@ namespace EnergyManager.EnergyDataAPI.UnitsOfWork
             DeviceInformation = new DeviceInformationRepo(_applicationContext);
             EnergyData = new EnergyDataRepo(_applicationContext);
             TagData = new TagDataRepo(_applicationContext); 
-            UnitsOfMeasurement = new UnitsOfMeasurementRepo(_applicationContext);   
+            UnitsOfMeasurement = new UnitsOfMeasurementRepo(_applicationContext);
+            Buildings = new BuildingsRepo(_applicationContext);
+            Locations = new LocationsRepo(_applicationContext);
         } 
         
         public IDeviceInformationRepo DeviceInformation { get; private set; }
         public ITagDataRepo TagData { get; private set; }
         public IEnergyDataRepo EnergyData { get; private set; }
         public IUnitsOfMeasurementRepo UnitsOfMeasurement { get; private set; }
+        public IBuildingsRepo Buildings { get; private set; }
+        public ILocationsRepo Locations { get; private set; } 
 
         public async Task<int> Complete()
         {

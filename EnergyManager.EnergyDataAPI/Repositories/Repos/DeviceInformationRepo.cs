@@ -2,6 +2,8 @@
 using EnergyManager.EnergyDataAPI.Models.Devices;
 using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Graph;
+using System.Collections.Generic;
 
 namespace EnergyManager.EnergyDataAPI.Repositories.Repos
 {
@@ -16,8 +18,7 @@ namespace EnergyManager.EnergyDataAPI.Repositories.Repos
         {
             int result = await AddAsync(device);           
 
-            return result;
-            
+            return result;              
         }
 
         public async Task<int> CreateDevices(IEnumerable<DeviceInformationModel> devices)
@@ -42,6 +43,27 @@ namespace EnergyManager.EnergyDataAPI.Repositories.Repos
             IEnumerable<DeviceInformationModel> devices = await FindAsync(x => deviceIds.Contains(x.DeviceDataId));
 
             return devices;
-        }         
+        }
+
+        public async Task<IEnumerable<DeviceInformationModel>> GetDevicesListByCustomerIdAsync(Guid customerId)
+        {
+            IEnumerable<DeviceInformationModel> devices = await FindAsync(x => x.CustomerId == customerId);
+
+            return devices;
+        }
+
+        public async Task<IEnumerable<DeviceInformationModel>> GetDevicesListByBuildingIdAsync(Guid buildingId)
+        {
+            IEnumerable<DeviceInformationModel> devices = await FindAsync(x => x.BuildingId == buildingId);
+
+            return devices;
+        }      
+
+        public async Task<IEnumerable<DeviceInformationModel>> GetDevicesListByLocationIdAsync(Guid locationId)
+        {
+            IEnumerable<DeviceInformationModel> devices = await FindAsync(x => x.LocationId == locationId);
+
+            return devices;
+        }
     }    
 }

@@ -1,4 +1,5 @@
-﻿using EnergyManager.EnergyDataAPI.DTOs.Requests.UnitsOfMeasurement;
+﻿using EnergyManager.EnergyDataAPI.DTOs.Requests.Customers;
+using EnergyManager.EnergyDataAPI.DTOs.Requests.UnitsOfMeasurement;
 
 namespace EnergyManager.EnergyDataAPI.DTOs.Requests.DeviceInformation
 {
@@ -11,7 +12,6 @@ namespace EnergyManager.EnergyDataAPI.DTOs.Requests.DeviceInformation
         public Guid LocationId { get; set; }
         public Guid BuildingId { get; set; }
         public bool DeviceEnabled { get; set; }
-        public DateTime DeviceDateCreated { get; set; }
-        public UnitsOfMeasurementRequest? UnitsOfMeasurement { get; set; }
+        public DateTime DeviceDateCreated { get; set; }        
     }
 }
