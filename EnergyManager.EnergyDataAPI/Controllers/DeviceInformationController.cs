@@ -44,10 +44,9 @@ namespace EnergyManager.EnergyDataAPI.Controllers
         /// <returns>IEnumerable<DeviceInformationResponse>></returns>
         [HttpGet, Route("GetDevices")]
         public async Task<ActionResult<IEnumerable<DeviceInformationResponse>>> GetDevicesList(Guid customerId)
-        {
-          
+        {                  
 
-            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesAsync(deviceIds);           
+            IEnumerable<DeviceInformationModel> devices = await _deviceInformationRepo.GetDevicesListByCustomerIdAsync(customerId);           
 
             if (devices.Count() < 1) 
             {

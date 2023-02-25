@@ -16,7 +16,7 @@ namespace EnergyManager.EnergyDataAPI.Validators.DeviceInformation
             RuleFor(x => x.CustomerId).NotNull().NotEmpty().WithMessage("The device request requires a customer Id!");
             RuleFor(x => x.LocationId).NotNull().NotEmpty().WithMessage("The device request requires a location Id!");
             RuleFor(x => x.BuildingId).NotNull().NotEmpty().WithMessage("The device request requires a building Id!");            
-            RuleFor(x => x.UnitsOfMeasurement).SetValidator(new UnitsOfMeasurementRequestValidator());     
+            //RuleFor(x => x.UnitsOfMeasurement).SetValidator(new UnitsOfMeasurementRequestValidator());     
         }
     }
 }
