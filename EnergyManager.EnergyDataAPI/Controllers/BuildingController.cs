@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EnergyManager.EnergyDataAPI.DTOs.Requests.Customers;
+using EnergyManager.EnergyDataAPI.Models.Customers;
 using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using EnergyManager.EnergyDataAPI.UnitsOfWork;
 using FluentValidation;
@@ -14,12 +15,12 @@ namespace EnergyManager.EnergyDataAPI.Controllers
         private readonly IBuildingsRepo _buildingsDataRepo;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IValidator<BuildingDataRequest> _buildingDataValidator;
+        private readonly IValidator<BuildingsRequest> _buildingDataValidator;
 
         public BuildingController(IBuildingsRepo buildingsDataRepo,
             IMapper mapper,
             IUnitOfWork unitOfWork,
-            IValidator<BuildingDataRequest> buildingDataValidator)
+            IValidator<BuildingsRequest> buildingDataValidator)
         {
             _buildingsDataRepo = buildingsDataRepo;
             _mapper = mapper;
@@ -27,12 +28,9 @@ namespace EnergyManager.EnergyDataAPI.Controllers
             _buildingDataValidator = buildingDataValidator;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        public async Task<ActionResult<BuildingModel>> GetBuildingByBuildingIdAsync(Guid buildingId)
         {
-            return Ok("Test output.");
-        
-        
+            return Ok();
         }
     }
 }

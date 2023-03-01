@@ -1,7 +1,4 @@
 ﻿using EnergyManager.EnergyDataAPI.DTOs.Requests.DeviceInformation;
-using EnergyManager.EnergyDataAPI.DTOs.Requests.UnitsOfMeasurement;
-using EnergyManager.EnergyDataAPI.Validators.Types;
-using EnergyManager.EnergyDataAPI.Validators.UnitsOfMeasurement;
 using FluentValidation;
 
 namespace EnergyManager.EnergyDataAPI.Validators.DeviceInformation

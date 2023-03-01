@@ -19,6 +19,7 @@ namespace EnergyManager.EnergyDataAPI.UnitsOfWork
             UnitsOfMeasurement = new UnitsOfMeasurementRepo(_applicationContext);
             Buildings = new BuildingsRepo(_applicationContext);
             Locations = new LocationsRepo(_applicationContext);
+            Addresses = new AddressRepo(_applicationContext);
         } 
         
         public IDeviceInformationRepo DeviceInformation { get; private set; }
@@ -26,7 +27,8 @@ namespace EnergyManager.EnergyDataAPI.UnitsOfWork
         public IEnergyDataRepo EnergyData { get; private set; }
         public IUnitsOfMeasurementRepo UnitsOfMeasurement { get; private set; }
         public IBuildingsRepo Buildings { get; private set; }
-        public ILocationsRepo Locations { get; private set; } 
+        public ILocationsRepo Locations { get; private set; }
+        public IAddressRepo Addresses { get; private set; }
 
         public async Task<int> Complete()
         {

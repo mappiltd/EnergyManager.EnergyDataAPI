@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EnergyManager.EnergyDataAPI.DTOs.Requests.Customers;
+using EnergyManager.EnergyDataAPI.Models.Customers;
 using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using EnergyManager.EnergyDataAPI.UnitsOfWork;
 using FluentValidation;
@@ -14,19 +15,20 @@ namespace EnergyManager.EnergyDataAPI.Controllers
         private readonly ILocationsRepo _locationsDataRepo;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IValidator<LocationDataRequest> _locationDataValidator;
+        private readonly IValidator<LocationsRequest> _locationDataValidator;
 
         public LocationController(ILocationsRepo locationsDataRepo,
             IMapper mapper,
             IUnitOfWork unitOfWork,
-            IValidator<LocationDataRequest> locationDataValidator)
+            IValidator<LocationsRequest> locationDataValidator)
         {
             _locationsDataRepo = locationsDataRepo;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _locationDataValidator = locationDataValidator;
         }
-        public IActionResult Index()
+        
+        public async Task<ActionResult<LocationModel>> GetLocationByLocationIdAsync(Guid locationId)
         {
             return View();
         }
