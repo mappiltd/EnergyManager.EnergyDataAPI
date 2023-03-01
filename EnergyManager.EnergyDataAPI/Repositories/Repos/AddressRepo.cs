@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnergyManager.EnergyDataAPI.Repositories.Repos
 {
-    public class LocationsRepo : Repository<LocationModel>, ILocationsRepo
+    public class AddressRepo : Repository<AddressModel>, IAddressRepo
     {
-        public LocationsRepo(IDbContextFactory<ApplicationDbContext> applicationContext) : base(applicationContext)
+        public AddressRepo(IDbContextFactory<ApplicationDbContext> applicationContext) : base(applicationContext)
         {
         }
     }

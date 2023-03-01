@@ -55,6 +55,10 @@ builder.Services.AddScoped<IDeviceInformationRepo, DeviceInformationRepo>();
 builder.Services.AddScoped<IEnergyDataRepo, EnergyDataRepo>();
 builder.Services.AddScoped<ITagDataRepo, TagDataRepo>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ILocationsRepo, LocationsRepo>();
+builder.Services.AddScoped<IBuildingsRepo, BuildingsRepo>();
+builder.Services.AddScoped <IAddressRepo, AddressRepo>();
+
 
 //Validator Services
 builder.Services.AddScoped<IValidator<DeviceInformationRequest>, DeviceInformationRequestValidator>();

@@ -20,6 +20,9 @@ namespace EnergyManager.EnergyDataAPI.Models.Customers
         public Guid AddressesId { get; set; }
 
         [Required]
+        public Guid CustomerId { get; set; }
+
+        [Required]
         public bool Enabled { get; set; }
     }
 }

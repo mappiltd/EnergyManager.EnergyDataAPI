@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EnergyManager.EnergyDataAPI.DTOs.Requests.DeviceInformation;
+using EnergyManager.EnergyDataAPI.DTOs.Requests.UnitsOfMeasurement;
 using EnergyManager.EnergyDataAPI.Repositories.Interfaces;
 using EnergyManager.EnergyDataAPI.UnitsOfWork;
 using FluentValidation;
@@ -7,28 +7,30 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EnergyManager.EnergyDataAPI.Controllers
 {
-    public class UnitsOfMeasurementController : Controller
+    [Route("api/UnitsOfMeasurement")]
+    [ApiController]
+    public class UnitsOfMeasurementController : ControllerBase
     {
-        private readonly IDeviceInformationRepo _deviceInformationRepo;
+        private readonly IUnitsOfMeasurementRepo _unitsOfMeasurementRepo;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IValidator<DeviceInformationRequest> _deviceInformationValidator;
         private readonly IMapper _mapper;
+        private readonly IValidator<UnitsOfMeasurementRequest> _deviceInformationValidator;          
 
-        public UnitsOfMeasurementController(IDeviceInformationRepo deviceInformationRepo,
+        public UnitsOfMeasurementController(IUnitsOfMeasurementRepo unitsOfMeasurementRepo,
             IMapper mapper,
             IUnitOfWork unitOfWork,
-            IValidator<DeviceInformationRequest> deviceInformationValidator)
+            IValidator<UnitsOfMeasurementRequest> deviceInformationValidator)
         {
-            _deviceInformationRepo = deviceInformationRepo;
+            _unitsOfMeasurementRepo = unitsOfMeasurementRepo;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _deviceInformationValidator = deviceInformationValidator;
         }
 
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            return View();
+            return Ok();
         }
     }
 }
