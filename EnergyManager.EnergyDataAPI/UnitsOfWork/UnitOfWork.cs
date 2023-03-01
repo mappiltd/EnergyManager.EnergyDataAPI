@@ -33,6 +33,7 @@ namespace EnergyManager.EnergyDataAPI.UnitsOfWork
         public async Task<int> Complete()
         {
             using ApplicationDbContext context = _applicationContext.CreateDbContext();
+            
             return await context.SaveChangesAsync();
         }
     }

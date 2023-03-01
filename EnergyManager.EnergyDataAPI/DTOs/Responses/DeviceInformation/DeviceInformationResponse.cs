@@ -11,6 +11,6 @@ namespace EnergyManager.EnergyDataAPI.DTOs.Responses.DeviceInformation
         public bool DeviceEnabled { get; set; }
         public UnitsOfMeasurementRequest? UnitsOfMeasurement { get; set; }
         public BuildingsRequest? BuildingData { get; set; }
-        public LocationsRequest? LocationData { get; set; }
+        public LocationsRequest? LocationData { get; set; }        
     }
 }
