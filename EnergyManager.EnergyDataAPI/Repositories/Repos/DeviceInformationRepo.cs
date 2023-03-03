@@ -8,10 +8,12 @@ using System.Collections.Generic;
 namespace EnergyManager.EnergyDataAPI.Repositories.Repos
 {
     public class DeviceInformationRepo : Repository<DeviceInformationModel>, IDeviceInformationRepo
-    {           
+    {
+        private readonly IDbContextFactory<ApplicationDbContext> _applicationContext;
 
         public DeviceInformationRepo(IDbContextFactory<ApplicationDbContext> applicationContext) : base(applicationContext)
-        {           
+        {
+            _applicationContext = applicationContext;
         }
 
         public async Task<int> CreateDevice(DeviceInformationModel device)
@@ -33,17 +35,29 @@ namespace EnergyManager.EnergyDataAPI.Repositories.Repos
 
         public async Task<DeviceInformationModel> GetDeviceAsync(Guid deviceId)
         {
-            DeviceInformationModel device = await GetAsync(deviceId);
+            using ApplicationDbContext context = _applicationContext.CreateDbContext();
 
-            return device;
-        }
-
-        public async Task<IEnumerable<DeviceInformationModel>> GetDevicesAsync(IEnumerable<Guid> deviceIds)
-        {
-            IEnumerable<DeviceInformationModel> devices = await FindAsync(x => deviceIds.Contains(x.DeviceDataId));
+            DeviceInformationModel devices = await (from device in context.DeviceInformation 
+                                                     join location in context.Locations on device.LocationId equals location.LocationId
+                                                     join building in context.Buildings on device.BuildingId equals building.BuildingId
+                                                     join uom in context.UnitsOfMeasurement on device.UnitsOfMeasurementId equals uom.UnitsOfMeasurementId
+                                                     where device.DeviceDataId == deviceId
+                                                     select new DeviceInformationModel
+                                                     {
+                                                         DeviceDataId = device.DeviceDataId,
+                                                         DeviceName = device.DeviceName,
+                                                         DeviceDescription = device.DeviceDescription,
+                                                         CustomerId = device.CustomerId,
+                                                         BuildingId = device.BuildingId,
+                                                         LocationId = device.LocationId,
+                                                         UnitsOfMeasurementId = device.UnitsOfMeasurementId,
+                                                         DeviceEnabled = device.DeviceEnabled,
+                                                         DeviceDateCreated = device.DeviceDateCreated
+                                                     })
+                                                     .FirstOrDefaultAsync() ?? new DeviceInformationModel();
 
             return devices;
-        }
+        }       
 
         public async Task<IEnumerable<DeviceInformationModel>> GetDevicesListByCustomerIdAsync(Guid customerId)
         {

@@ -4,8 +4,7 @@ namespace EnergyManager.EnergyDataAPI.Repositories.Interfaces
 {
     public interface IDeviceInformationRepo
     {
-        Task<DeviceInformationModel> GetDeviceAsync(Guid deviceId);  
-        Task<IEnumerable<DeviceInformationModel>> GetDevicesAsync(IEnumerable<Guid> deviceId);
+        Task<DeviceInformationModel> GetDeviceAsync(Guid deviceId);        
         Task<IEnumerable<DeviceInformationModel>> GetDevicesListByCustomerIdAsync(Guid customerId);
         Task<IEnumerable<DeviceInformationModel>> GetDevicesListByLocationIdAsync(Guid locationId);
         Task<IEnumerable<DeviceInformationModel>> GetDevicesListByBuildingIdAsync(Guid buildingId);
